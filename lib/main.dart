@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 
 // Project imports:
-import 'package:udemy_flutter_sns/time_line/time_line_page.dart';
+import 'package:udemy_flutter_sns/view/time_line/time_line_page.dart';
 
 void main() {
   runApp(const MyApp());
