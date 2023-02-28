@@ -7,7 +7,6 @@ import 'package:intl/intl.dart';
 // Project imports:
 import 'package:udemy_flutter_sns/model/account.dart';
 import 'package:udemy_flutter_sns/model/post.dart';
-import 'package:udemy_flutter_sns/view/time_line/post_page.dart';
 
 class TimeLinePage extends StatefulWidget {
   const TimeLinePage({super.key});
@@ -126,17 +125,6 @@ class _TimeLinePageState extends State<TimeLinePage> {
           );
         },
         itemCount: postList.length,
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const PostPage(),
-            ),
-          );
-        },
-        child: const Icon(Icons.chat_bubble_outline),
       ),
     );
   }
