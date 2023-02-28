@@ -1,8 +1,11 @@
 // Dart imports:
-import 'dart:math';
+import 'dart:io';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+
+// Package imports:
+import 'package:image_picker/image_picker.dart';
 
 class CreateAccountPage extends StatefulWidget {
   const CreateAccountPage({super.key});
@@ -17,6 +20,17 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController userIdController = TextEditingController();
   TextEditingController selfIntroductionController = TextEditingController();
+  File? image;
+  ImagePicker picker = ImagePicker();
+
+  Future<void> getImageFromGallery() async {
+    final pickedFile = await picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        image = File(pickedFile.path);
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +57,15 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
               const SizedBox(
                 height: 32,
               ),
-              const CircleAvatar(
-                radius: 40,
-                child: Icon(Icons.add),
+              GestureDetector(
+                child: CircleAvatar(
+                  foregroundImage: image == null ? null : FileImage(image!),
+                  radius: 40,
+                  child: const Icon(Icons.add),
+                ),
+                onTap: () {
+                  getImageFromGallery();
+                },
               ),
               SizedBox(
                 width: 300,
@@ -97,7 +117,8 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       emailController.text.isNotEmpty &&
                       userIdController.text.isNotEmpty &&
                       passwordController.text.isNotEmpty &&
-                      selfIntroductionController.text.isNotEmpty) {
+                      selfIntroductionController.text.isNotEmpty &&
+                      image != null) {
                     Navigator.pop(context);
                   }
                 },
